@@ -1,0 +1,39 @@
+.gameField {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+
+.rectangle {
+  position: absolute;
+  cursor: move;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+  }
+
+  &.newRectangle {
+    transform-origin: top left;
+    animation: moveToPosition 0.5s forwards;
+  }
+}
+
+@keyframes moveToPosition {
+  from {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate(var(--finalX), var(--finalY));
+    opacity: 1;
+  }
+}

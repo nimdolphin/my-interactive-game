@@ -1,17 +1,17 @@
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
-import Link from "next/link";
+import GameField from "@/components/gameField/GameField";
 
-export default function Home() {
+const GamePage = () => {
   return (
     <div className="container">
       <Header />
       <main className="main">
-        <h2>Welcome to the Interactive Game</h2>
-        <p>Click the link below to start playing:</p>
-        <Link href="/game">Go to Game</Link>
+        <GameField />
       </main>
       <Footer />
     </div>
   );
-}
+};
+
+export default GamePage;
