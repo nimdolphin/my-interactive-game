@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js Interactive Game Field Implementation
 
-## Getting Started
+## Project Description
 
-First, run the development server:
+This project implements a responsive website using Next.js, featuring an interactive game field where users can spawn and move rectangles with images inside. The website includes multiple pages, all sharing a consistent header and footer. A contact form is also implemented using React Hook Form.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features Implemented
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. Layout Structure
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Responsive Layout:** The website is designed with a responsive layout consisting of a header, body, and footer.
+- **SCSS for Styling:** All components are styled using SCSS for maintainability and modularity.
+- **Multiple Pages:** The website includes a main page that describes the website, and additional pages sharing the same header and footer but containing different content.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 2. Header
 
-## Learn More
+- **Simple Header:** A fixed header bar at the top of the page with a placeholder for the website title or logo.
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Footer
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Simple Footer:** A fixed footer bar at the bottom of the page with a placeholder for footer content, such as a copyright notice.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### 4. Game Field (Body)
 
-## Deploy on Vercel
+- **Interactive Game Field:** In the body section of the game page, there is a game field where users can spawn and move rectangles containing images.
+- **Responsive Design:** The game field adapts to the remaining space between the header and footer and adjusts according to window resizing.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 5. Rectangle Spawning
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Spawn Mechanism:** New rectangles can be spawned within the game field when the user clicks on any empty spot.
+- **Rectangle Content:** Each rectangle contains a placeholder image.
+- **Animation:** Spawning a new rectangle includes an animation from the top left corner to the click/tap coordinates.
+
+### 6. Rectangle Interaction
+
+- **Drag and Move:** Users can drag and move the rectangles around within the game field.
+- **Smooth Interaction:** Dragging interaction is smooth and responsive.
+- **Layer Management:** The last interacted rectangle always appears on the top layer.
+
+### 7. Responsiveness
+
+- **Responsive Application:** The entire application is responsive, ensuring usability across different devices and screen sizes.
+- **Dynamic Resizing:** When the browser window is resized, the game field recalculates its size, and the rectangles adjust their positions accordingly.
+
+### 8. Additional Pages
+
+- **Contact Form:** Implemented a contact form on one of the pages, including fields for the user's name, email, subject, and message, along with a submit button. Form validation is handled using React Hook Form, ensuring valid email format and required fields.
+
+## Technologies Used
+
+- **Next.js:** For server-side rendering and static site generation.
+- **SCSS:** For styling components.
+- **React Hook Form:** For managing the contact form and its validations.
+- **React Draggable:** For enabling draggable functionality on rectangles.
+
+## Installation and Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   ```
+2. **Navigate to the project directory:**
+   ```bash
+   cd <project-directory>
+   ```
+3. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+4. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+5. **Open the project in your browser:**
+   ```
+   http://localhost:3000
+   ```
