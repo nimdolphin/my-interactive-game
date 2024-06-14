@@ -1,27 +1,29 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import Draggable from "react-draggable";
 import Image from "next/image";
+import useResizeEffect from "@/hooks/useResizeEffect";
+import { calculateNewRect } from "@/utils/calculateNewRect";
 import styles from "../../app/styles/GameField.module.scss";
 
 const GameField = () => {
   const [rectangles, setRectangles] = useState([]);
   const nodeRefs = useRef([]);
-  const isDragging = useRef(false);
+  const isDraggingRef = useRef(false);
   const fieldRef = useRef(null);
 
   const handleFieldPointerDown = (e) => {
     if (e.target.className.includes("rectangle")) {
-      isDragging.current = true;
+      isDraggingRef.current = true;
     } else {
-      isDragging.current = false;
+      isDraggingRef.current = false;
     }
   };
 
   const handleFieldClick = (e) => {
-    if (isDragging.current) {
-      isDragging.current = false;
+    if (isDraggingRef.current) {
+      isDraggingRef.current = false;
       return;
     }
 
@@ -30,31 +32,16 @@ const GameField = () => {
     }
 
     const fieldRect = e.currentTarget.getBoundingClientRect();
-    const rectWidth = (fieldRect.width * 15) / 100;
-    const rectHeight = (fieldRect.height * 10) / 100;
-    const newRect = {
-      id: Date.now(),
-      x: e.clientX - fieldRect.left - rectWidth / 2,
-      y: e.clientY - fieldRect.top - rectHeight / 2,
-      xPercent:
-        ((e.clientX - fieldRect.left - rectWidth / 2) / fieldRect.width) * 100,
-      yPercent:
-        ((e.clientY - fieldRect.top - rectHeight / 2) / fieldRect.height) * 100,
-      widthPercent: 15,
-      heightPercent: 10,
-      img: "/placeholder.webp",
-      isNew: true,
-    };
+    const newRect = calculateNewRect(e, fieldRect);
 
     setRectangles((prev) => {
-      const updated = [...prev, newRect];
       nodeRefs.current.push(React.createRef());
-      return updated;
+      return [...prev, newRect];
     });
   };
 
   const handleStart = (index) => {
-    isDragging.current = true;
+    isDraggingRef.current = true;
 
     setRectangles((prev) => {
       const updated = [...prev];
@@ -84,7 +71,7 @@ const GameField = () => {
 
   const handleStop = () => {
     setTimeout(() => {
-      isDragging.current = false;
+      isDraggingRef.current = false;
     }, 0);
   };
 
@@ -92,23 +79,7 @@ const GameField = () => {
     e.preventDefault();
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (fieldRef.current) {
-        const fieldRect = fieldRef.current.getBoundingClientRect();
-        setRectangles((prev) =>
-          prev.map((rect) => ({
-            ...rect,
-            x: (rect.xPercent / 100) * fieldRect.width,
-            y: (rect.yPercent / 100) * fieldRect.height,
-          }))
-        );
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  useResizeEffect(fieldRef, setRectangles);
 
   return (
     <div
